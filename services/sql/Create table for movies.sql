@@ -1,4 +1,4 @@
-
+--Create the table
 create table movies (
 	movie_title VARCHAR(50),
 	movie_genre VARCHAR(50),
