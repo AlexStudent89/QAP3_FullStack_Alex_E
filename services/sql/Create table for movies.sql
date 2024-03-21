@@ -1,5 +1,6 @@
 --Create the table
 create table movies (
+	movie_id serial NOT NULL,
 	movie_title VARCHAR(50),
 	movie_genre VARCHAR(50),
 	director VARCHAR(50),

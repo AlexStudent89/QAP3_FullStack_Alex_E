@@ -1,0 +1,29 @@
+<html lang="en">
+ 
+    <body>
+
+        <div class="logins content">
+            <h1>MoviesData</h1>
+            <form action="/movies" method="POST">
+                <b>Movies: </b></br> 
+            <% if (theMovies.length > 0) { %>
+                <% theMovies.forEach(movie => { %>
+                    <b><%= movie.movie_title %></b>
+                    <a href="/movies/<%=movie.movie_id%>/edit?username=<%=movie.movie_title%>">edit</a>
+                    <a href="/movies/<%=movie.movie_id%>/delete?username=<%=movie.movie_title%>">delete</a></br> 
+                    <% }) %>
+            <% } %>
+            </br><label>Add Movie:</label></br>
+            <label>Username:
+                <input type="text" id="userame" name="username" value="<%= locals.userame %>" required>
+            </label>
+            <label>Password:
+                <input type="password" id="password" name="password" value="<%= locals.password %>" required>
+            </label>
+            </br>
+            <button>POST</button>
+        </form>
+        </div>
+    </body>
+ 
+</html>

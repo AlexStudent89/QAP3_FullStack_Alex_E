@@ -1,27 +1,39 @@
 // index.js
-
 const express = require('express');
-const path = require('path');
-const fs = require('fs');
-
+const methodOverride = require('method-override');
 const app = express();
-const port = 3000;
-const cors = require('cors');
-app.use(cors());
+const PORT = 3000;
 
-app.get('/', (req, res) => {
-    // Read the contents of the node_modules folder
-    fs.readdir(path.join(__dirname, 'node_modules'), (err, files) => {
-        if (err) {
-            return res.status(500).send('Error reading node_modules folder');
-        }
-        // Send the list of files as JSON response
-        res.json({ files });
-    });
-});
+global.DEBUG = true;
+app.set('view engine', 'ejs');
+app.use(express.static('public'));
+app.use(express.urlencoded({ extended: true, })); 
+app.use(methodOverride('_method')); 
 
-// Import and start the server from app.js
-const appInstance = require('./app'); // Assuming app.js is in the same directory
-appInstance.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
+// app.get('/', (req, res) => {
+//     res.render('index.ejs', { name: 'Cassian Andor'});
+// });
+// app.get('/about', (request, response) => {
+//     response.render('about.ejs');
+// });
+
+ const moviesRouter = require('./route/movie_routes')
+ app.use('/movies', moviesRouter);
+
+// const loginsRouter = require('./routes/logins')
+// app.use('/logins', loginsRouter);
+
+// const usersRouter = require('./routes/users')
+// app.use('/users', usersRouter);
+
+// // anything beginning with "/api" will go into this
+// const apiRouter = require('./routes/api')
+// app.use('/api', apiRouter);
+
+// app.use((req, res) => {
+//     res.status(404).render('404');
+// });
+
+app.listen(PORT, () => {
+    console.log(`Simple app running on port ${PORT}.`)
 });
